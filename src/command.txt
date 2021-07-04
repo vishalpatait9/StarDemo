@@ -1,0 +1,7 @@
+npx create-react-app startravels
+npm install react-bootstrap bootstrap
+npm install @material-ui/icons
+npm install @material-ui/core
+npm install --save react-router-dom
+npm install axios
+npm install --save react-toastify
