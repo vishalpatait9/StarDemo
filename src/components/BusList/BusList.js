@@ -75,11 +75,13 @@ class BusList extends Component {
       ._reservation(data)
 
       .then(response => {
-        console.log(response);
+        console.log(response.data._id);
+        localStorage.setItem("reservationID", response.data._id);
+
         this.setState({
           alert: "",
           isSuccess: true,
-          Message: "Reservation Successful",
+          Message: "Reservation Successful ,complete Payment to comfirm",
           defaultType: "success"
         });
       })

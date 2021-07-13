@@ -5,3 +5,8 @@ npm install @material-ui/core
 npm install --save react-router-dom
 npm install axios
 npm install --save react-toastify
+
+npm i react-google-login
+
+npm i react-facebook-login
+

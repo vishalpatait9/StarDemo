@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import MaterialTable from "material-table";
-
+import Snackbar from "@material-ui/core/Snackbar";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
 import axios from "axios";
 
 export default function BookingList() {
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMsg, setSnackbarMsg] = useState("");
   const [entries, setEntries] = useState({
     data: [
       {
@@ -22,23 +26,23 @@ export default function BookingList() {
     ]
   });
 
-  const [state] = React.useState({
-    columns: [
-      { title: "Name", field: "name" },
-      { title: "Mobile", field: "mobile" },
-      { title: "Email", field: "email" },
-      { title: "From", field: "startCity" },
-      { title: "To", field: "destination" },
-      { title: "BusNumber", field: "busNumber" },
-      { title: "Reserved Seat", field: "reservedSeat" },
-      { title: "Price", field: "pricePerSeat" },
-      { title: "Transaction", field: "transaction" },
-      { title: "Passengers", field: "passengers" }
-    ]
-  });
+  // const [state] = React.useState({
+  //   columns: [
+  //     { title: "Name", field: "name" },
+  //     { title: "Mobile", field: "mobile" },
+  //     { title: "Email", field: "email" },
+  //     { title: "From", field: "startCity" },
+  //     { title: "To", field: "destination" },
+  //     { title: "BusNumber", field: "busNumber" },
+  //     { title: "Reserved Seat", field: "reservedSeat" },
+  //     { title: "Price", field: "pricePerSeat" },
+  //     { title: "Transaction", field: "transaction" },
+  //     { title: "Passengers", field: "passengers" }
+  //   ]
+  // });
   const getBookings = async () => {
     await axios
-      .get("http://localhost:8080/reservation/getAll")
+      .get("https://starbakend.herokuapp.com/reservation/getAll")
       .then(response => {
         let data = [];
         response.data.forEach(el => {
@@ -64,16 +68,33 @@ export default function BookingList() {
         console.log(error);
       });
   };
-  useEffect(async () => {
-    await getBookings();
-  }, []);
 
+  useEffect(() => {
+    getBookings();
+  }, []);
+  const snackbarClose = e => {
+    setSnackbarOpen(false);
+    getBookings();
+  };
   return (
     <>
       <MaterialTable
         style={{ width: "96% ", margin: "auto" }}
-        title="Booking Table"
-        columns={state.columns}
+        title="Reservation Management"
+        // columns={state.columns}
+
+        columns={[
+          { title: "Name", field: "name" },
+          { title: "Mobile", field: "mobile" },
+          { title: "Email", field: "email" },
+          { title: "From", field: "startCity" },
+          { title: "To", field: "destination" },
+          { title: "BusNumber", field: "busNumber" },
+          { title: "Reserved Seat", field: "reservedSeat" },
+          { title: "Price", field: "pricePerSeat" },
+          { title: "Transaction", field: "transaction" },
+          { title: "Passengers", field: "passengers" }
+        ]}
         data={entries.data}
         options={{
           exportButton: true
@@ -85,9 +106,11 @@ export default function BookingList() {
                 resolve();
                 const data = [...entries.data];
                 data[data.indexOf(oldData)] = newData;
+                console.log(oldData.id, "oldData.id");
+
                 axios
                   .put(
-                    `http://localhost:8888/api/v1/dish/${oldData.id}`,
+                    `https://starbakend.herokuapp.com/reservation/update/${oldData.id}`,
                     newData,
                     {
                       params: {
@@ -96,7 +119,10 @@ export default function BookingList() {
                     }
                   )
                   .then(res => console.log(res.data));
+                setSnackbarOpen(true);
+                setSnackbarMsg("Reservation updated");
                 setEntries({ ...entries, data });
+                getBookings();
               }, 1000);
             }),
           onRowAdd: newData =>
@@ -106,12 +132,23 @@ export default function BookingList() {
                 const data = [...entries.data];
 
                 axios
-                  .post("http://localhost:8080/reservation/create", newData)
-                  .then(res => console.log(res.data));
+                  .post(
+                    "https://starbakend.herokuapp.com/reservation/create",
+                    newData
+                  )
+                  .then(res => {
+                    console.log(res.data);
+                    setSnackbarOpen(true);
+                    setSnackbarMsg("Reservation added ");
+                  })
+                  .catch(err => {
+                    setSnackbarOpen(true);
+                    setSnackbarMsg("This seat is reserved , please try again");
+                  });
 
                 setEntries({ ...entries, data });
+                getBookings();
               }, 3000);
-              getBookings();
             }),
           onRowDelete: oldData =>
             new Promise(resolve => {
@@ -121,16 +158,40 @@ export default function BookingList() {
                 data.splice(data.indexOf(oldData), 1);
                 axios
                   .delete(
-                    `http://localhost:8080/reservation/delete/${oldData.id}`,
+                    `https://starbakend.herokuapp.com/reservation/delete/${oldData.id}`,
                     oldData
                   )
                   .then(res => console.log(res.data));
+                setSnackbarOpen(true);
+                setSnackbarMsg("Reservation deleted ");
 
                 setEntries({ ...entries, data });
+                getBookings();
               }, 3000);
-              getBookings();
             })
         }}
+      />
+      <Snackbar
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center"
+        }}
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={snackbarClose}
+        message={snackbarMsg}
+        action={
+          <React.Fragment>
+            <IconButton
+              size="small"
+              aria-label="close"
+              color="inherit"
+              onClick={snackbarClose}
+            >
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          </React.Fragment>
+        }
       />
     </>
   );

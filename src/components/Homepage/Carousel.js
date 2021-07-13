@@ -98,7 +98,7 @@ class Carousel extends React.Component {
         <div>
           <img src={logo} class="d-block w-100" alt="..." />
         </div>
-        <div className="container">
+        {/* <div className="container">
           <div className="slogan">
             <h1>
               <span>always Travel</span>
@@ -109,7 +109,7 @@ class Carousel extends React.Component {
               </div>
             </h1>
           </div>
-        </div>
+        </div> */}
       </>
     );
   }

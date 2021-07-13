@@ -8,6 +8,8 @@ import { _login } from "../../Redux/Actions/user.actions";
 import { connect } from "react-redux";
 
 import "./auth.css";
+import Google from "./Google";
+import Facebook from "./Facebook";
 class Login extends Component {
   state = {
     email: "",
@@ -25,6 +27,7 @@ class Login extends Component {
 
       password: this.state.password
     };
+    localStorage.removeItem("x-auth-token");
     this.props
       ._login(data)
       .then(response => {
@@ -33,7 +36,7 @@ class Login extends Component {
             toast.success("Login successful", {
               onClose: () => {
                 // this.props.history.push("/routes");
-                window.location.href = "/admin";
+                window.location.href = "/sidebar";
               }
             });
           } else {
@@ -93,14 +96,16 @@ class Login extends Component {
                 <input type="submit" value="LOGIN" />
               </div>
             </form>
-
             <div class="signup">
               Don't have account?
               {/* <a href="#">Signup Now</a> */}
               <Link to={"/register"}>Signup Now</Link>
             </div>
+            <Google />
+            <Facebook />{" "}
           </div>
         </div>
+
         <ToastContainer autoClose={1500} />
       </>
     );
@@ -108,6 +113,3 @@ class Login extends Component {
 }
 
 export default connect(null, { _login })(Login);
-
-// vishal@yopmail.com
-// 1234567890

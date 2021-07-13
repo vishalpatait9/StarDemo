@@ -53,22 +53,32 @@
 import React, { useState } from "react";
 import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
-const Payment = () => {
+import Button from "@material-ui/core/Button";
+const Payment = props => {
+  const pricePerSeat =
+    props.dataInp &&
+    props.dataInp.map(data => {
+      return data.pricePerSeat;
+    });
+
+  console.log(pricePerSeat, "pricePerSeat");
   const [product, setProduct] = useState({
     name: "react",
-    price: 110,
+    price: pricePerSeat ? pricePerSeat : 0,
     productBy: "facebook"
   });
   const makePayment = token => {
     const data = {
       token,
-      product
+      product,
+      _id: localStorage.getItem("reservationID"),
+      transaction: "payed"
     };
     const headers = {
       "Content-Type": "application/json"
     };
     axios
-      .post("http://localhost:8080/payment ", data, { headers })
+      .post("https://starbakend.herokuapp.com/payment ", data, { headers })
       .then(response => {
         console.log(response.data.receipt_url, "response");
         window.location.assign(response.data.receipt_url, "_blank");
@@ -79,16 +89,24 @@ const Payment = () => {
         throw error;
       });
   };
+
   return (
     <>
-      <StripeCheckout
-        stripeKey="pk_test_51J8fc7SFCB8usBRp4hdhmDMX0XM0ongTfl4HwX4lO0NGnBByo97LqjagPdeX2Tj6EvnZHnGpMQ09zNyzF3CCladl00dTlLccss"
-        token={makePayment}
-        name="Star Travels"
-        amount={product.price * 100}
-        billingAddress
-        shippingAddress
-      />
+      {" "}
+      <div className="col-md-6 offset-md-3 text-center">
+        <StripeCheckout
+          stripeKey="pk_test_51J8fc7SFCB8usBRp4hdhmDMX0XM0ongTfl4HwX4lO0NGnBByo97LqjagPdeX2Tj6EvnZHnGpMQ09zNyzF3CCladl00dTlLccss"
+          token={makePayment}
+          name="Star Travels"
+          amount={product.price * 100}
+          billingAddress
+          shippingAddress
+        >
+          <Button variant="contained" color="primary">
+            Pay Rs: {product.price}
+          </Button>
+        </StripeCheckout>
+      </div>
     </>
   );
 };

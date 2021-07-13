@@ -1,42 +1,3 @@
-/* .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
-
 html,
 body {
   z-index: -1;
@@ -45,34 +6,15 @@ body {
   color: #fff;
   height: 100%;
   background-color: #021b39;
-  /* font-family: "Baloo Da 2", cursive; */
 }
-/* #root {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 100%;
-} */
-
-/* .App a {
-  color: #828ed4;
-  transition: 0.2s all ease-in-out;
-}
-.App a:hover {
-  opacity: 0.75;
-} */
 
 .App {
   z-index: 10;
-  /* text-align: center; */
-  /* margin: 0px 24px; */
+
   transition: 0.1s all ease-in-out;
   animation: app-enter-anim 0.1s ease-out;
 }
-/* .App-text {
-  opacity: 1;
-  transition: 0.1s all ease-in-out;
-} */
+
 .App-particles__container {
   overflow: hidden;
   position: absolute;
@@ -82,7 +24,6 @@ body {
   bottom: 0px;
   right: 0px;
   z-index: 0;
-  /* height: 100%; */
 }
 .App-particles__container canvas {
   transition: 0.2s all ease-in-out;
@@ -90,20 +31,6 @@ body {
   height: 100%;
   width: 100%;
 }
-
-/* .App-text__title {
-  margin: 0px;
-  font-weight: 400;
-  font-size: 3.25rem;
-  letter-spacing: 0.5rem;
-  font-family: "Oswald", sans-serif;
-}
-.App-text__body {
-  margin: 0px;
-  margin-top: 12px;
-  font-weight: 400;
-  font-size: 1.2rem;
-} */
 
 @keyframes app-enter-anim {
   from {
@@ -125,4 +52,3 @@ body {
     transfrom: scale(1);
   }
 }
-/* ................................................................................................. */

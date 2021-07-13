@@ -24,24 +24,25 @@ export default function TravelsIndex() {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMsg, setSnackbarMsg] = useState("");
 
-  const [state] = React.useState({
-    columns: [
-      { title: "From", field: "startCity" },
-      { title: "To", field: "destination" },
-      { title: "BusNumber", field: "busNumber" },
-      //   { title: "Seat", field: "reservedSeat" },
-      { title: "Price", field: "pricePerSeat" },
-      { title: "Bus Type", field: "busType" },
-      { title: "TotalSeats", field: "totalSeats" },
-      { title: "AvailableSeats", field: "availableSeats" }
-    ]
-  });
+  // const [state] = React.useState({
+  //   columns: [
+  //     { title: "From", field: "startCity" },
+  //     { title: "To", field: "destination" },
+  //     { title: "BusNumber", field: "busNumber" },
+
+  //     { title: "Price", field: "pricePerSeat" },
+  //     { title: "Bus Type", field: "busType" },
+  //     { title: "TotalSeats", field: "totalSeats" },
+  //     { title: "AvailableSeats", field: "availableSeats" }
+  //   ]
+  // });
   const snackbarClose = e => {
     setSnackbarOpen(false);
+    getTravels();
   };
-  const getTravels = () => {
-    axios
-      .get("http://localhost:8080/booking/getAll")
+  const getTravels = async () => {
+    await axios
+      .get("https://starbakend.herokuapp.com/booking/getAll")
       .then(response => {
         let data = [];
         response.data.forEach(el => {
@@ -71,8 +72,18 @@ export default function TravelsIndex() {
     <>
       <MaterialTable
         style={{ width: "96% ", margin: "auto" }}
-        title="Travels Table"
-        columns={state.columns}
+        title="Travels Management"
+        // columns={state.columns}
+        columns={[
+          { title: "From", field: "startCity" },
+          { title: "To", field: "destination" },
+          { title: "BusNumber", field: "busNumber" },
+
+          { title: "Price", field: "pricePerSeat" },
+          { title: "Bus Type", field: "busType" },
+          { title: "TotalSeats", field: "totalSeats" },
+          { title: "AvailableSeats", field: "availableSeats" }
+        ]}
         data={entries.data}
         editable={{
           onRowUpdate: (newData, oldData) =>
@@ -83,7 +94,7 @@ export default function TravelsIndex() {
                 data[data.indexOf(oldData)] = newData;
                 axios
                   .put(
-                    `http://localhost:8080/booking/update/${oldData.id}`,
+                    `https://starbakend.herokuapp.com/booking/update/${oldData.id}`,
                     newData,
                     {
                       params: {
@@ -94,28 +105,30 @@ export default function TravelsIndex() {
                   .then(res => console.log(res.data));
                 setSnackbarOpen(true);
                 setSnackbarMsg("Travels updated");
-                getTravels();
+
                 setEntries({ ...entries, data });
-              }, 600);
+                getTravels();
+              }, 1000);
             }),
           onRowAdd: newData =>
             new Promise(resolve => {
-              setTimeout(
-                () => {
-                  resolve();
-                  const data = [...entries.data];
+              setTimeout(() => {
+                resolve();
+                const data = [...entries.data];
 
-                  axios
-                    .post("http://localhost:8080/booking/create", newData)
-                    .then(res => console.log(res.data));
-                  setSnackbarOpen(true);
-                  setSnackbarMsg("Travels added ");
+                axios
+                  .post(
+                    "https://starbakend.herokuapp.com/booking/create",
+                    newData
+                  )
+                  .then(res => console.log(res.data));
 
-                  setEntries({ ...entries, data });
-                },
-                getTravels(),
-                600
-              );
+                setSnackbarOpen(true);
+                setSnackbarMsg("Travels added ");
+
+                setEntries({ ...entries, data });
+                getTravels();
+              }, 1000);
             }),
           onRowDelete: oldData =>
             new Promise(resolve => {
@@ -125,15 +138,18 @@ export default function TravelsIndex() {
                 data.splice(data.indexOf(oldData), 1);
                 axios
                   .delete(
-                    `http://localhost:8080/booking/delete/${oldData.id}`,
+                    `https://starbakend.herokuapp.com/booking/delete/${oldData.id}`,
                     oldData
                   )
-                  .then(res => console.log(res.data));
+                  .then(res => {
+                    console.log(res.data);
+                  });
                 setSnackbarOpen(true);
                 setSnackbarMsg("Travels deleted ");
-                getTravels();
+
                 setEntries({ ...entries, data });
-              }, 600);
+                getTravels();
+              }, 1000);
             })
         }}
       />

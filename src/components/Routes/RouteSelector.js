@@ -13,6 +13,8 @@ import SeatSelection from "./SeatSelction";
 import Payment from "../Payment/Payment";
 import * as apiCall from "./routeApifunc";
 import BusList from "../BusList/BusList";
+import { withRouter } from "react-router-dom";
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -54,7 +56,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function RouteSelector() {
+function RouteSelector() {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
@@ -155,8 +157,8 @@ export default function RouteSelector() {
             displySeat={displySeat}
           />
         </TabPanel>
-        <TabPanel value={value} id="payment" index={1} dir={theme.direction}>
-          <Payment />
+        <TabPanel value={value} id="Payment" index={1} dir={theme.direction}>
+          <Payment dataInp={dataInp} />
         </TabPanel>
         {/* <TabPanel value={value} id="seats" index={2} dir={theme.direction}>
           <SeatSelection handleSeat={handleSeat} />
@@ -165,3 +167,4 @@ export default function RouteSelector() {
     </div>
   );
 }
+export default withRouter(RouteSelector);

@@ -13,7 +13,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
-
+import DirectionsBusIcon from "@material-ui/icons/DirectionsBus";
 import ListItemText from "@material-ui/core/ListItemText";
 
 import AssignmentTurnedInIcon from "@material-ui/icons/AssignmentTurnedIn";
@@ -166,8 +166,7 @@ function AdminSidebar() {
                 <ListItemText>Booking</ListItemText>
               </ListItem>
               <ListItem button component={Link} to="/sidebar/travels">
-                <AssignmentTurnedInIcon />
-
+                <DirectionsBusIcon />
                 <ListItemText>Travels</ListItemText>
               </ListItem>
             </List>
