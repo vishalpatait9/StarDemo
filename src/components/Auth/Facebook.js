@@ -3,8 +3,13 @@ import axios from "axios";
 import FacebookLogin from "react-facebook-login";
 import { ToastContainer, toast } from "react-toastify";
 import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { _facebookLogin } from "../../Redux/Actions/user.actions";
 class Facebook extends Component {
-  state = {};
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
   responseFacebook = response => {
     console.log(response, "response");
     localStorage.removeItem("x-auth-token");
@@ -12,19 +17,21 @@ class Facebook extends Component {
       accessToken: response.accessToken,
       userID: response.userID
     };
-    console.log(response);
-    axios
-      .post("https://starbakend.herokuapp.com/social/facebookLogin", data)
+    // console.log(response);
+    // axios
+    //   .post("http://localhost:8080/social/facebookLogin", data)
+    this.props
+      ._facebookLogin(data)
       .then(response => {
-        console.log(response, "response");
-        localStorage.setItem(
-          "x-auth-token",
-          JSON.stringify(response.data.token)
-        );
+        console.log(response, "response from api");
+        // localStorage.setItem(
+        //   "x-auth-token",
+        //   JSON.stringify(response.data.token)
+        // );
         toast.success("Login successful", {
           onClose: () => {
-            // window.location.href = "/routes";
-            this.props.history.push("/routes");
+            window.location.href = "/routes";
+            // this.props.history.push("/routes");
           }
         });
       })
@@ -45,10 +52,10 @@ class Facebook extends Component {
             callback={this.responseFacebook}
           />
         </div>
-        <ToastContainer autoClose={1500} />
+        {/* <ToastContainer autoClose={1500} /> */}
       </>
     );
   }
 }
 
-export default withRouter(Facebook);
+export default connect(null, { _facebookLogin })(Facebook);

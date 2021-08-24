@@ -55,6 +55,7 @@ class Profile extends Component {
   componentDidMount() {
     const tok = localStorage.getItem("x-auth-token");
     const decoded = jwt_decode(tok);
+    console.log(decoded);
 
     this.setState({ token: decoded.user });
   }

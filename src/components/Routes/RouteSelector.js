@@ -14,6 +14,7 @@ import Payment from "../Payment/Payment";
 import * as apiCall from "./routeApifunc";
 import BusList from "../BusList/BusList";
 import { withRouter } from "react-router-dom";
+import Coupon from "../Coupon/Coupon";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -117,54 +118,71 @@ function RouteSelector() {
 
     localStorage.setItem("date", e.target.value);
   };
+  const paymentSucess = localStorage.getItem("paymentSucess"); //to dispay coupon component after payment sucessfull
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static" color="default">
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-          variant="fullWidth"
-          aria-label="full width tabs example"
-        >
-          <Tab label="Select Travels" href="#selectRoute" {...a11yProps(0)} />
-          <Tab label="Payment" href="#payment" {...a11yProps(1)} />
-          {/* <Tab label="Select Seat" href="#seats" {...a11yProps(2)} /> */}
-        </Tabs>
-      </AppBar>
-      <SwipeableViews
-        axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-        index={value}
-        onChangeIndex={handleChangeIndex}
-      >
-        <TabPanel
-          value={value}
-          id="selectRoute"
-          index={0}
-          dir={theme.direction}
-        >
-          <RouteSelection
-            handleToCity={handleToCity}
-            renderBusList={renderBusList}
-            handleFromCity={handleFromCity}
-            getRoutes={getRoutes}
-            handleDate={handleDate}
-            dataInp={dataInp}
-            seat={seat}
-            handleSeat={handleSeat}
-            displySeat={displySeat}
-          />
-        </TabPanel>
-        <TabPanel value={value} id="Payment" index={1} dir={theme.direction}>
-          <Payment dataInp={dataInp} />
-        </TabPanel>
-        {/* <TabPanel value={value} id="seats" index={2} dir={theme.direction}>
+    <>
+      {paymentSucess ? (
+        <Coupon /> //to dispay coupon component after payment sucessfull
+      ) : (
+        <div className={classes.root}>
+          <AppBar position="static" color="default">
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              indicatorColor="primary"
+              textColor="primary"
+              variant="fullWidth"
+              aria-label="full width tabs example"
+            >
+              <Tab
+                label="Select Travels"
+                href="#selectRoute"
+                {...a11yProps(0)}
+              />
+              <Tab label="Payment" href="#payment" {...a11yProps(1)} />
+              {/* <Tab label="Select Seat" href="#seats" {...a11yProps(2)} /> */}
+            </Tabs>
+          </AppBar>
+
+          <SwipeableViews
+            axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+            index={value}
+            onChangeIndex={handleChangeIndex}
+          >
+            <TabPanel
+              value={value}
+              id="selectRoute"
+              index={0}
+              dir={theme.direction}
+            >
+              <RouteSelection
+                handleToCity={handleToCity}
+                renderBusList={renderBusList}
+                handleFromCity={handleFromCity}
+                getRoutes={getRoutes}
+                handleDate={handleDate}
+                dataInp={dataInp}
+                seat={seat}
+                handleSeat={handleSeat}
+                displySeat={displySeat}
+              />
+            </TabPanel>
+            <TabPanel
+              value={value}
+              id="Payment"
+              index={1}
+              dir={theme.direction}
+            >
+              <Payment dataInp={dataInp} />
+            </TabPanel>
+            {/* <TabPanel value={value} id="seats" index={2} dir={theme.direction}>
           <SeatSelection handleSeat={handleSeat} />
         </TabPanel> */}
-      </SwipeableViews>
-    </div>
+          </SwipeableViews>
+        </div>
+      )}
+    </>
   );
 }
 export default withRouter(RouteSelector);

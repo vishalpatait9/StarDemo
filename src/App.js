@@ -18,6 +18,9 @@ import Navbar from "./components/Homepage/Navbar";
 import RouteSelector from "./components/Routes/RouteSelector";
 import BookingList from "./components/Admin/BookingList";
 import AdminSidebar from "./components/Admin/AdminSidebar";
+import ForgotPassword from "./components/Auth/ForgotPassword";
+import ResetPassword from "./components/Auth/ResetPassword";
+import Coupon from "./components/Coupon/Coupon";
 
 const history = createBrowserHistory();
 function App() {
@@ -50,6 +53,14 @@ function App() {
               <Route path="/" exact render={props => <Index {...props} />} />
               <Route path="/login" render={props => <Login {...props} />} />
               <Route path="/register" render={props => <SignUp {...props} />} />
+              <Route
+                path="/forgot-password"
+                render={props => <ForgotPassword {...props} />}
+              />
+              <Route
+                path="/reset-password/:token"
+                render={props => <ResetPassword {...props} />}
+              />
               {/* {!isLogin && <Redirect from="*" to="/" />}
                 </Fragment>
               )} */}
@@ -63,6 +74,11 @@ function App() {
                     path="/profile"
                     exact
                     render={props => <Profile {...props} />}
+                  />
+                  <Route
+                    path="/coupon"
+                    exact
+                    render={props => <Coupon {...props} />}
                   />
                   <Route
                     path="/sidebar"

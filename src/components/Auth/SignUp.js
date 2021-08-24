@@ -39,6 +39,7 @@ class SignUp extends Component {
       .then(response => {
         if (response.status == 201) {
           toast.success("SignUp successfully");
+          window.location.href = "/login";
         } else {
           toast.error("Something wents wrong");
         }

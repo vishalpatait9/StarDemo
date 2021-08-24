@@ -15,13 +15,15 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
 import DirectionsBusIcon from "@material-ui/icons/DirectionsBus";
 import ListItemText from "@material-ui/core/ListItemText";
-
+import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import AssignmentTurnedInIcon from "@material-ui/icons/AssignmentTurnedIn";
 import { Router, Route, Link, Switch } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import BookingList from "./BookingList";
 import TravelsIndex from "./TravelsIndex";
-
+import UsersIndex from "./UsersIndex";
+import { withRouter } from "react-router-dom";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 const drawerWidth = 240;
 const history = createBrowserHistory();
 
@@ -87,7 +89,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function AdminSidebar() {
+function AdminSidebar(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -99,7 +101,12 @@ function AdminSidebar() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
+  const logOut = e => {
+    localStorage.clear();
+    global.token = "";
+    global.UserName = "";
+    props.history.push("/");
+  };
   return (
     <>
       {" "}
@@ -160,14 +167,22 @@ function AdminSidebar() {
             </div>
             <Divider />
             <List>
-              <ListItem button component={Link} to="/sidebar/admin">
+              <ListItem button component={Link} to="/sidebar/reservation">
                 <AssignmentTurnedInIcon />
 
-                <ListItemText>Booking</ListItemText>
+                <ListItemText>Reservation</ListItemText>
               </ListItem>
               <ListItem button component={Link} to="/sidebar/travels">
                 <DirectionsBusIcon />
                 <ListItemText>Travels</ListItemText>
+              </ListItem>
+              <ListItem button component={Link} to="/sidebar/users">
+                <PersonAddIcon />
+                <ListItemText>Users</ListItemText>
+              </ListItem>
+              <ListItem button onClick={logOut}>
+                <ExitToAppIcon />
+                <ListItemText>logOut</ListItemText>
               </ListItem>
             </List>
           </Drawer>
@@ -175,11 +190,14 @@ function AdminSidebar() {
         <div>
           <Suspense fallback={<p>Loading....</p>}>
             <Switch>
-              <Route path="/sidebar/admin" exact>
+              <Route path="/sidebar/reservation" exact>
                 <BookingList />
               </Route>
               <Route path="/sidebar/travels" exact>
                 <TravelsIndex />
+              </Route>
+              <Route path="/sidebar/users" exact>
+                <UsersIndex />
               </Route>
             </Switch>
           </Suspense>
@@ -188,4 +206,4 @@ function AdminSidebar() {
     </>
   );
 }
-export default AdminSidebar;
+export default withRouter(AdminSidebar);

@@ -4,8 +4,16 @@ import Snackbar from "@material-ui/core/Snackbar";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import axios from "axios";
+import { connect } from "react-redux";
 
-export default function BookingList() {
+import {
+  _getAllReservation_Admin,
+  _postReservation_Admin,
+  _updateReservation_Admin,
+  deleteReservation_Admin
+} from "../../Redux/Actions/admin.actions";
+
+const BookingList = props => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMsg, setSnackbarMsg] = useState("");
   const [entries, setEntries] = useState({
@@ -41,8 +49,10 @@ export default function BookingList() {
   //   ]
   // });
   const getBookings = async () => {
-    await axios
-      .get("https://starbakend.herokuapp.com/reservation/getAll")
+    // axios
+    //   .get("http://localhost:8080/reservation/getAll")
+    await props
+      ._getAllReservation_Admin()
       .then(response => {
         let data = [];
         response.data.forEach(el => {
@@ -108,16 +118,18 @@ export default function BookingList() {
                 data[data.indexOf(oldData)] = newData;
                 console.log(oldData.id, "oldData.id");
 
-                axios
-                  .put(
-                    `https://starbakend.herokuapp.com/reservation/update/${oldData.id}`,
-                    newData,
-                    {
-                      params: {
-                        id: entries.data[0].id
-                      }
-                    }
-                  )
+                // axios
+                //   .put(
+                //     `http://localhost:8080/reservation/update/${oldData.id}`,
+                //     newData,
+                //     {
+                //       params: {
+                //         id: entries.data[0].id
+                //       }
+                //     }
+                //   )
+                props
+                  ._updateReservation_Admin(oldData)
                   .then(res => console.log(res.data));
                 setSnackbarOpen(true);
                 setSnackbarMsg("Reservation updated");
@@ -131,11 +143,10 @@ export default function BookingList() {
                 resolve();
                 const data = [...entries.data];
 
-                axios
-                  .post(
-                    "https://starbakend.herokuapp.com/reservation/create",
-                    newData
-                  )
+                // axios
+                //   .post("http://localhost:8080/reservation/create", newData)
+                props
+                  ._postReservation_Admin(newData)
                   .then(res => {
                     console.log(res.data);
                     setSnackbarOpen(true);
@@ -156,11 +167,13 @@ export default function BookingList() {
                 resolve();
                 const data = [...entries.data];
                 data.splice(data.indexOf(oldData), 1);
-                axios
-                  .delete(
-                    `https://starbakend.herokuapp.com/reservation/delete/${oldData.id}`,
-                    oldData
-                  )
+                // axios
+                //   .delete(
+                //     `http://localhost:8080/reservation/delete/${oldData.id}`,
+                //     oldData
+                //   )
+                props
+                  .deleteReservation_Admin(oldData)
                   .then(res => console.log(res.data));
                 setSnackbarOpen(true);
                 setSnackbarMsg("Reservation deleted ");
@@ -177,7 +190,7 @@ export default function BookingList() {
           horizontal: "center"
         }}
         open={snackbarOpen}
-        autoHideDuration={6000}
+        autoHideDuration={2000}
         onClose={snackbarClose}
         message={snackbarMsg}
         action={
@@ -195,4 +208,18 @@ export default function BookingList() {
       />
     </>
   );
-}
+};
+
+// const mapStateToProps = state => {
+//   console.log(state, "state");
+
+//   return {
+//     userData: state.adminData.users
+//   };
+// };
+export default connect(null, {
+  _getAllReservation_Admin,
+  _postReservation_Admin,
+  _updateReservation_Admin,
+  deleteReservation_Admin
+})(BookingList);

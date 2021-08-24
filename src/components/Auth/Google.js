@@ -2,28 +2,32 @@ import React, { Component } from "react";
 import GoogleLogin from "react-google-login";
 import { ToastContainer, toast } from "react-toastify";
 import { withRouter } from "react-router-dom";
-
+import { connect } from "react-redux";
+import { _googleLogin } from "../../Redux/Actions/user.actions";
 import axios from "axios";
 class Google extends Component {
-  state = {};
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
   responseGoogle = response => {
-    // console.log(response);
+    console.log(response);
     const data = {
       tokenId: response.tokenId
     };
 
     localStorage.removeItem("x-auth-token");
-    axios
-      .post("https://starbakend.herokuapp.com/social/googleLogin", data)
+    // axios
+    //   .post("http://localhost:8080/social/googleLogin", data)
+    this.props
+      ._googleLogin(data)
       .then(response => {
-        localStorage.setItem(
-          "x-auth-token",
-          JSON.stringify(response.data.token)
-        );
+        console.log(response, "response from api");
+
         toast.success("Login successful", {
           onClose: () => {
-            // window.location.href = "/routes";
-            this.props.history.push("/routes");
+            window.location.href = "/routes";
+            // this.props.history.push("/routes");
           }
         });
       })
@@ -46,10 +50,10 @@ class Google extends Component {
             cookiePolicy={"single_host_origin"}
           />
         </div>
-        <ToastContainer autoClose={1500} />
+        {/* <ToastContainer autoClose={1500} /> */}
       </>
     );
   }
 }
 
-export default withRouter(Google);
+export default connect(null, { _googleLogin })(Google);

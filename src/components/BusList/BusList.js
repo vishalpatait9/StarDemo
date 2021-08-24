@@ -75,13 +75,13 @@ class BusList extends Component {
       ._reservation(data)
 
       .then(response => {
-        console.log(response.data._id);
         localStorage.setItem("reservationID", response.data._id);
 
         this.setState({
           alert: "",
           isSuccess: true,
-          Message: "Reservation Successful ,complete Payment to comfirm",
+          Message:
+            "Reservation Successful complete Payment to comfirm your reservation",
           defaultType: "success"
         });
       })
@@ -101,7 +101,7 @@ class BusList extends Component {
   componentDidMount() {
     const tok = localStorage.getItem("x-auth-token");
     const decoded = jwt_decode(tok);
-    // this.setState({ obj: this.props.busData, token: decoded.user._id });
+
     this.setState({ token: decoded.user._id });
   }
 

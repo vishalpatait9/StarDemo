@@ -6,6 +6,7 @@ import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import { _login } from "../../Redux/Actions/user.actions";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 import "./auth.css";
 import Google from "./Google";
@@ -35,7 +36,7 @@ class Login extends Component {
           if (response.data && response.data.user.role == "admin") {
             toast.success("Login successful", {
               onClose: () => {
-                // this.props.history.push("/routes");
+                // this.props.history.push("/sidebar");
                 window.location.href = "/sidebar";
               }
             });
@@ -43,6 +44,7 @@ class Login extends Component {
             toast.success("Login successful", {
               onClose: () => {
                 window.location.href = "/routes";
+                // this.props.history.push("/routes");
               }
             });
           }
@@ -100,6 +102,9 @@ class Login extends Component {
               Don't have account?
               {/* <a href="#">Signup Now</a> */}
               <Link to={"/register"}>Signup Now</Link>
+              Forgot password?
+              {/* <a href="#">Signup Now</a> */}
+              <Link to={"/forgot-password"}>Forgot password</Link>
             </div>
             <Google />
             <Facebook />{" "}
@@ -112,4 +117,4 @@ class Login extends Component {
   }
 }
 
-export default connect(null, { _login })(Login);
+export default withRouter(connect(null, { _login })(Login));
