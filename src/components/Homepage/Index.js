@@ -15,6 +15,8 @@ class Index extends Component {
           data={
             "STAR TRAVELES |Happiness Is Travelling. Awaken To A Different World"
           }
+          name={"description"}
+          content={"STAR TRAVELES |Home Page"}
         />
         {/* <Navbar /> */}
         <Carousel />

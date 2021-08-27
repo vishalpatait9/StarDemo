@@ -56,6 +56,8 @@ class SignUp extends Component {
           data={
             "STAR TRAVELES |Happiness Is Travelling. Awaken To A Different World"
           }
+          name={"description"}
+          content={"STAR TRAVELES |Signup"}
         />
         <div class="bg-img">
           <div class="content">

@@ -72,6 +72,8 @@ class ResetPassword extends Component {
           data={
             "STAR TRAVELES |Happiness Is Travelling. Awaken To A Different World"
           }
+          name={"description"}
+          content={"STAR TRAVELES |FACEBOOK reset password"}
         />
         <div class="bg-img">
           <div class="content">

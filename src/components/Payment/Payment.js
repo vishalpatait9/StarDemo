@@ -68,6 +68,8 @@ const Payment = props => {
         data={
           "STAR TRAVELES |Happiness Is Travelling. Awaken To A Different World"
         }
+        name={"description"}
+        content={"STAR TRAVELES |Payment Gateway"}
       />{" "}
       <div className="col-md-6 offset-md-3 text-center">
         {/* { usedDiscount == true ? (
