@@ -24,6 +24,7 @@ import TravelsIndex from "./TravelsIndex";
 import UsersIndex from "./UsersIndex";
 import { withRouter } from "react-router-dom";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import HelmetData from "../HelmetData/HelmetData";
 const drawerWidth = 240;
 const history = createBrowserHistory();
 
@@ -109,7 +110,11 @@ function AdminSidebar(props) {
   };
   return (
     <>
-      {" "}
+      <HelmetData
+        data={
+          "STAR TRAVELES |Happiness Is Travelling. Awaken To A Different World"
+        }
+      />{" "}
       <Router history={history}>
         <div className={classes.root}>
           <CssBaseline />

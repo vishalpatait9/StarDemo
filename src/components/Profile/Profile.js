@@ -8,6 +8,7 @@ import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
 import logo from "../assets/d.jpg";
 import jwt_decode from "jwt-decode";
+import HelmetData from "../HelmetData/HelmetData";
 
 const styles = muiBaseTheme => ({
   card: {
@@ -71,6 +72,14 @@ class Profile extends Component {
 
     return (
       <>
+        <HelmetData
+          data={
+            token &&
+            token.name +
+              " " +
+              "STAR TRAVELES |Happiness Is Travelling. Awaken To A Different World."
+          }
+        />
         <Card className={classes.card}>
           <CardMedia className={classes.media} image={logo} />
           <CardContent className={classes.content}>

@@ -11,6 +11,7 @@ import { withRouter } from "react-router-dom";
 import "./auth.css";
 import Google from "./Google";
 import Facebook from "./Facebook";
+import HelmetData from "../HelmetData/HelmetData";
 class Login extends Component {
   state = {
     email: "",
@@ -60,6 +61,11 @@ class Login extends Component {
   render() {
     return (
       <>
+        <HelmetData
+          data={
+            "STAR TRAVELES |Happiness Is Travelling. Awaken To A Different World"
+          }
+        />
         <div class="bg-img">
           <div class="content">
             <header>Login </header>

@@ -22,7 +22,7 @@ export const _login = (email, password) => async dispatch => {
       localStorage.setItem("x-auth-token", JSON.stringify(res.data.token));
       dispatch({
         type: LOGIN_SUCCESS,
-        auth: res //auth is payload we passing to useReducer.js file in login reducer
+        auth: res //auth is payload we passing to userReducer.js file in login reducer
       });
     }
     return Promise.resolve(res);

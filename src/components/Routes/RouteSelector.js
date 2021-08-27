@@ -15,6 +15,7 @@ import * as apiCall from "./routeApifunc";
 import BusList from "../BusList/BusList";
 import { withRouter } from "react-router-dom";
 import Coupon from "../Coupon/Coupon";
+import HelmetData from "../HelmetData/HelmetData";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -122,6 +123,11 @@ function RouteSelector() {
 
   return (
     <>
+      <HelmetData
+        data={
+          "STAR TRAVELES |Happiness Is Travelling. Awaken To A Different World"
+        }
+      />
       {paymentSucess ? (
         <Coupon /> //to dispay coupon component after payment sucessfull
       ) : (

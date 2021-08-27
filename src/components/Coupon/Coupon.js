@@ -6,6 +6,7 @@ import jwt_decode from "jwt-decode";
 import axios from "axios";
 import { connect } from "react-redux";
 import { _postDiscount } from "../../Redux/Actions/user.actions";
+import HelmetData from "../HelmetData/HelmetData";
 const Coupon = props => {
   const [scratchedText, setScratchedText] = useState("");
   const [token, setToken] = useState("");
@@ -62,13 +63,20 @@ const Coupon = props => {
   }, []);
 
   return (
-    <div className="col-md-10 offset-md-3 text-center mt-5">
-      <ScratchCard {...settings}>
-        <div style={{ textAlign: "center", marginLeft: "200px" }}>
-          {scratchedText}
-        </div>
-      </ScratchCard>
-    </div>
+    <>
+      <HelmetData
+        data={
+          "STAR TRAVELES |Happiness Is Travelling. Awaken To A Different World"
+        }
+      />
+      <div className="col-md-10 offset-md-3 text-center mt-5">
+        <ScratchCard {...settings}>
+          <div style={{ textAlign: "center", marginLeft: "200px" }}>
+            {scratchedText}
+          </div>
+        </ScratchCard>
+      </div>
+    </>
   );
 };
 export default connect(null, { _postDiscount })(Coupon);

@@ -9,6 +9,7 @@ import { withRouter } from "react-router-dom";
 import SweetAlert from "react-bootstrap-sweetalert";
 
 import "./auth.css";
+import HelmetData from "../HelmetData/HelmetData";
 
 class ForgotPassword extends Component {
   state = {
@@ -65,6 +66,11 @@ class ForgotPassword extends Component {
   render() {
     return (
       <>
+        <HelmetData
+          data={
+            "STAR TRAVELES |Happiness Is Travelling. Awaken To A Different World"
+          }
+        />
         <div class="bg-img">
           <div class="content">
             <header>Forgot Password </header>

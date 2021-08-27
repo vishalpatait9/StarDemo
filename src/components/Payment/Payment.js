@@ -5,6 +5,7 @@ import Button from "@material-ui/core/Button";
 import jwt_decode from "jwt-decode";
 import { connect } from "react-redux";
 import { _payment } from "../../Redux/Actions/user.actions";
+import HelmetData from "../HelmetData/HelmetData";
 const Payment = props => {
   const pricePerSeat =
     props.dataInp &&
@@ -63,7 +64,11 @@ const Payment = props => {
 
   return (
     <>
-      {" "}
+      <HelmetData
+        data={
+          "STAR TRAVELES |Happiness Is Travelling. Awaken To A Different World"
+        }
+      />{" "}
       <div className="col-md-6 offset-md-3 text-center">
         {/* { usedDiscount == true ? (
           <h4 style={{ color: "pink" }}>

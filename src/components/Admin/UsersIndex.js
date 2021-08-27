@@ -185,3 +185,9 @@ export default connect(null, {
   _updateUsers_Admin,
   _deleteUsers_Admin
 })(UsersIndex);
+// const mapDispatchToProps = dispatch => {       //this is alternative to postUsers function we written below in connect
+//   return {
+//     postUsers: (name, email, mobile, message, city, password, gender) =>
+//       dispatch(postUsers(name, email, mobile, message, city, password, gender))
+//   };
+// };

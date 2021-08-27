@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { _facebookLogin } from "../../Redux/Actions/user.actions";
+import HelmetData from "../HelmetData/HelmetData";
 class Facebook extends Component {
   constructor(props) {
     super(props);
@@ -43,6 +44,11 @@ class Facebook extends Component {
   render() {
     return (
       <>
+        <HelmetData
+          data={
+            "STAR TRAVELES |Happiness Is Travelling. Awaken To A Different World"
+          }
+        />
         <div className="col-md-6 offset-md-3 text-center mt-3">
           <FacebookLogin
             appId="399618104802158"

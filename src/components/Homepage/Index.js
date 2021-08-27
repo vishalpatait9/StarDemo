@@ -3,6 +3,7 @@ import Navbar from "./Navbar";
 import Carousel from "./Carousel";
 import Cards from "./Cards";
 import Footer from "./Footer";
+import HelmetData from "../HelmetData/HelmetData";
 // import MouseParticles from "react-mouse-particles";
 
 class Index extends Component {
@@ -10,6 +11,11 @@ class Index extends Component {
   render() {
     return (
       <>
+        <HelmetData
+          data={
+            "STAR TRAVELES |Happiness Is Travelling. Awaken To A Different World"
+          }
+        />
         {/* <Navbar /> */}
         <Carousel />
         <Cards />

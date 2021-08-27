@@ -10,6 +10,7 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import { _register } from "../../Redux/Actions/user.actions";
 import { connect } from "react-redux";
 import "./auth.css";
+import HelmetData from "../HelmetData/HelmetData";
 class SignUp extends Component {
   state = {
     name: "",
@@ -51,6 +52,11 @@ class SignUp extends Component {
   render() {
     return (
       <>
+        <HelmetData
+          data={
+            "STAR TRAVELES |Happiness Is Travelling. Awaken To A Different World"
+          }
+        />
         <div class="bg-img">
           <div class="content">
             <header>SignUp</header>
