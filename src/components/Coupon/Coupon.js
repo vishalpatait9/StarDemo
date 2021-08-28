@@ -16,6 +16,7 @@ const Coupon = props => {
     setScratchedText(`Congratulations! You WON ! Rs: ${discount} discount`);
     setTimeout(function() {
       localStorage.removeItem("paymentSucess");
+      localStorage.removeItem("x-auth-token");
     }, 5000);
     handleSubmit();
   };
