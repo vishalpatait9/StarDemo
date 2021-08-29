@@ -45,8 +45,6 @@ class Google extends Component {
           data={
             "STAR TRAVELES |Happiness Is Travelling. Awaken To A Different World"
           }
-          name={"description"}
-          content={"STAR TRAVELES |Google Login"}
         />{" "}
         <div className="col-md-6 offset-md-3 text-center">
           <GoogleLogin

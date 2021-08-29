@@ -8,7 +8,11 @@ import {
   PAYMENT_SUCCESS,
   POSTDISCOUNT_SUCCESS,
   FACEBOOK_LOGIN_SUCCESS,
-  GOOGLE_LOGIN_SUCCESS
+  GOOGLE_LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  REGISTRATION_FAILED,
+  RESERVATION_FAILED,
+  GETALL_TRAVELS_FAILED
 } from "../Actions/user.types";
 
 const initialState = {
@@ -16,7 +20,7 @@ const initialState = {
 };
 
 function userReducer(state = initialState, action) {
-  const { type, auth, payload } = action;
+  const { type, auth, payload, error } = action;
 
   switch (type) {
     case LOGIN_SUCCESS:
@@ -27,12 +31,28 @@ function userReducer(state = initialState, action) {
       };
 
       break;
+    case LOGIN_FAIL:
+      state = {
+        ...state,
 
+        user: error //error is payload we get from user.acttion.js file in registration action
+      };
+
+      break;
     case REGISTRATION_SUCCESS:
       state = {
         ...state,
 
-        user: auth
+        //payload is payload we get from user.acttion.js file in registration action
+        user: payload
+      };
+
+      break;
+    case REGISTRATION_FAILED:
+      state = {
+        ...state,
+
+        user: error //error is payload we get from user.acttion.js file in reservation action
       };
 
       break;
@@ -61,11 +81,27 @@ function userReducer(state = initialState, action) {
       };
 
       break;
+    case RESERVATION_FAILED:
+      state = {
+        ...state,
+
+        user: error
+      };
+
+      break;
     case GETALL_TRAVELS:
       state = {
         ...state,
 
         user: payload
+      };
+
+      break;
+    case GETALL_TRAVELS_FAILED:
+      state = {
+        ...state,
+
+        user: error
       };
 
       break;

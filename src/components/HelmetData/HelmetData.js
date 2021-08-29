@@ -11,7 +11,6 @@ class HelmetData extends Component {
       <>
         <Helmet>
           <title>{this.props.data}</title>
-          <meta name={this.props.name} content={this.props.content} />
         </Helmet>
       </>
     );

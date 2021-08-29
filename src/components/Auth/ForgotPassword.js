@@ -70,8 +70,6 @@ class ForgotPassword extends Component {
           data={
             "STAR TRAVELES |Happiness Is Travelling. Awaken To A Different World"
           }
-          name={"description"}
-          content={"STAR TRAVELES | Forgot password"}
         />
         <div class="bg-img">
           <div class="content">

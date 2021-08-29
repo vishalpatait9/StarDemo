@@ -79,8 +79,6 @@ class Profile extends Component {
               " " +
               "STAR TRAVELES |Happiness Is Travelling. Awaken To A Different World."
           }
-          name={"description"}
-          content={"STAR TRAVELES |Profile"}
         />
         <Card className={classes.card}>
           <CardMedia className={classes.media} image={logo} />

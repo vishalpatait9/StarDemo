@@ -65,8 +65,6 @@ class Login extends Component {
           data={
             "STAR TRAVELES |Happiness Is Travelling. Awaken To A Different World"
           }
-          name={"description"}
-          content={"STAR TRAVELES | Login"}
         />
         <div class="bg-img">
           <div class="content">
@@ -124,5 +122,12 @@ class Login extends Component {
     );
   }
 }
+// const mapStateToProps = state => {
+//   console.log(state, "state");
+
+//   return {
+//     userData: state.userData.user
+//   };
+// };
 
 export default withRouter(connect(null, { _login })(Login));

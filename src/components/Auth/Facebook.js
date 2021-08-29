@@ -48,8 +48,6 @@ class Facebook extends Component {
           data={
             "STAR TRAVELES |Happiness Is Travelling. Awaken To A Different World"
           }
-          name={"description"}
-          content={"STAR TRAVELES |FACEBOOK Login"}
         />
         <div className="col-md-6 offset-md-3 text-center mt-3">
           <FacebookLogin

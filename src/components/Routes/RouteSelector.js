@@ -127,8 +127,6 @@ function RouteSelector() {
         data={
           "STAR TRAVELES |Happiness Is Travelling. Awaken To A Different World"
         }
-        name={"description"}
-        content={"STAR TRAVELES | Routes"}
       />
       {paymentSucess ? (
         <Coupon /> //to dispay coupon component after payment sucessfull

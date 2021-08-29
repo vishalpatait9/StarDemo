@@ -1,5 +1,6 @@
 import {
   LOGIN_SUCCESS,
+  LOGIN_FAIL,
   RESERVATION_SUCCESS,
   REGISTRATION_SUCCESS,
   GETALL_TRAVELS,
@@ -8,7 +9,10 @@ import {
   PAYMENT_SUCCESS,
   POSTDISCOUNT_SUCCESS,
   FACEBOOK_LOGIN_SUCCESS,
-  GOOGLE_LOGIN_SUCCESS
+  GOOGLE_LOGIN_SUCCESS,
+  REGISTRATION_FAILED,
+  RESERVATION_FAILED,
+  GETALL_TRAVELS_FAILED
 } from "./user.types";
 
 import DataService from "../services/api.service";
@@ -20,17 +24,29 @@ export const _login = (email, password) => async dispatch => {
 
     if (res.status === 200) {
       localStorage.setItem("x-auth-token", JSON.stringify(res.data.token));
-      dispatch({
-        type: LOGIN_SUCCESS,
-        auth: res //auth is payload we passing to userReducer.js file in login reducer
-      });
+      // dispatch({
+      //   type: LOGIN_SUCCESS,
+      //   auth: res //auth is payload we passing to userReducer.js file in login reducer
+      // });
+      dispatch(loginActionSuccess(res));
     }
     return Promise.resolve(res);
   } catch (err) {
-    return Promise.reject(err);
+    // return Promise.reject(err);
+    dispatch(loginActionError(err));
   }
 };
+export const loginActionSuccess = data => ({
+  type: LOGIN_SUCCESS,
+  //   auth: res //auth is payload we passing to userReducer.js file in login reducer
+  auth: data
+});
+export const loginActionError = error => ({
+  type: LOGIN_FAIL,
+  error: error
+});
 
+// ...........................................................
 export const _register = (
   name,
   email,
@@ -49,17 +65,27 @@ export const _register = (
       dob
     );
 
-    dispatch({
-      type: REGISTRATION_SUCCESS,
-      auth: res
-    });
-
+    // dispatch({
+    //   type: REGISTRATION_SUCCESS,
+    //   auth: res
+    // });
+    dispatch(registrationActionSuccess(res));
     return Promise.resolve(res);
   } catch (err) {
-    return Promise.reject(err);
+    // return Promise.reject(err);
+    dispatch(registrationActionError(err));
   }
 };
-
+export const registrationActionSuccess = data => ({
+  type: REGISTRATION_SUCCESS,
+  //   auth: res //auth is payload we passing to userReducer.js file in login reducer
+  auth: data // data is res from line no 70
+});
+export const registrationActionError = error => ({
+  type: REGISTRATION_FAILED,
+  error: error
+});
+// ............................................................
 export const _reservation = (
   startCity,
   destination,
@@ -85,32 +111,50 @@ export const _reservation = (
       bus
     );
 
-    dispatch({
-      type: RESERVATION_SUCCESS,
-      payload: res
-    });
-
+    // dispatch({
+    //   type: RESERVATION_SUCCESS,
+    //   payload: res
+    // });
+    dispatch(reservationActionSuccess(res));
     return Promise.resolve(res);
   } catch (err) {
-    return Promise.reject(err);
+    dispatch(reservationActionError(err));
+    // return Promise.reject(err);
   }
 };
-
+export const reservationActionSuccess = data => ({
+  type: RESERVATION_SUCCESS,
+  payload: data
+});
+export const reservationActionError = error => ({
+  type: RESERVATION_FAILED,
+  error: error
+});
+// ...................................................
 export const _getAllTravels = () => async dispatch => {
   try {
     const res = await DataService.getAllTravels();
 
-    dispatch({
-      type: GETALL_TRAVELS,
-      payload: res
-    });
-
+    // dispatch({
+    //   type: GETALL_TRAVELS,
+    //   payload: res
+    // });
+    dispatch(getTravelsActionSuccess(res));
     return Promise.resolve(res);
   } catch (err) {
-    return Promise.reject(err);
+    dispatch(getTravelsActionError(err));
+    // return Promise.reject(err);
   }
 };
-
+export const getTravelsActionSuccess = data => ({
+  type: GETALL_TRAVELS,
+  payload: data // data is res from line no 142
+});
+export const getTravelsActionError = errorr => ({
+  type: GETALL_TRAVELS_FAILED,
+  error: errorr // err is from line no 145
+});
+// .......................................................
 export const _forgotPassword = (
   resetPasswordLink,
   newPassword
