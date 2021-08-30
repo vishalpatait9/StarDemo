@@ -15,6 +15,8 @@ class Index extends Component {
           data={
             "STAR TRAVELES |Happiness Is Travelling. Awaken To A Different World"
           }
+          name="google-site-verification"
+          content="Icai0FOyTWGVS8w-6-nU9KhdDWDrwLSdEChTPrffk4Y"
         />
         {/* <Navbar /> */}
         <Carousel />
