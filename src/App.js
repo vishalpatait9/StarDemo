@@ -21,6 +21,7 @@ import AdminSidebar from "./components/Admin/AdminSidebar";
 import ForgotPassword from "./components/Auth/ForgotPassword";
 import ResetPassword from "./components/Auth/ResetPassword";
 import Coupon from "./components/Coupon/Coupon";
+import HelmetData from "./components/HelmetData/HelmetData";
 
 const history = createBrowserHistory();
 function App() {
@@ -32,6 +33,13 @@ function App() {
 
   return (
     <div className="App">
+      <HelmetData
+        data={
+          "STAR TRAVELE |Happiness Is Travelling. Awaken To A Different World"
+        }
+        name="google-site-verification"
+        content="Icai0FOyTWGVS8w-6-nU9KhdDWDrwLSdEChTPrffk4Y"
+      />
       <Provider store={store}>
         <BrowserRouter history={history}>
           <Navbar />
